@@ -1,0 +1,32 @@
+---
+import Navbar from './navbar.astro';
+
+const anim = {
+  old: {
+    name: 'fadeIn',
+    duration: '0.2s',
+    easing: 'linear',
+    fillMode: 'forwards',
+  },
+  new: {
+    name: 'fadeOut',
+    duration: '0.5s',
+    easing: 'linear',
+    fillMode: 'backwards',
+  },
+};
+
+const myFade = {
+  forwards: anim,
+  backwards: anim,
+};
+---
+
+<header transition:animate={myFade}>
+  <nav>
+    <Navbar />
+    <!-- <Hamburger /> -->
+    <!-- <ThemeIcon /> -->
+    <!-- <Navigation /> -->
+  </nav>
+</header>
