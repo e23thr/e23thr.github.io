@@ -1,0 +1,84 @@
+/* The integration's default injected base.css file */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.blog-content {
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-xl;
+  }
+  strong {
+    @apply font-bold;
+  }
+  em {
+    @apply italic;
+  }
+  ol {
+    @apply pt-3;
+    list-style: decimal;
+  }
+  ul {
+    @apply pt-3;
+    list-style: disc;
+  }
+  p {
+    @apply pt-3;
+  }
+  blockquote {
+    @apply pb-3 pl-3 mt-3 bg-slate-100 rounded-lg;
+    quotes: '\201C''\201D';
+  }
+  blockquote p::before {
+    content: open-quote;
+    display: inline;
+    font-size: 1.5em;
+    color: lightseagreen;
+  }
+
+  blockquote p::after {
+    content: close-quote;
+    display: inline;
+    font-size: 1.5em;
+    color: lightseagreen;
+  }
+  code {
+    @apply bg-gray-300;
+  }
+  pre {
+    @apply !bg-black mt-3 pt-3 rounded-xl;
+  }
+  pre > code {
+    @apply mt-3 !bg-black;
+  }
+  pre code > span.line {
+    @apply text-white bg-black mx-3;
+  }
+  hr {
+    @apply relative top-2 border-none h-1 bg-slate-200 mb-3 rounded-xl mx-3;
+  }
+
+  a {
+    @apply text-blue-600 underline;
+  }
+  a:visited {
+    @apply text-blue-600 underline;
+  }
+  a:hover {
+    @apply text-blue-500 no-underline;
+  }
+  p:has(img) {
+    @apply flex justify-center items-center flex-col text-sm text-gray-500;
+  }
+  img {
+    @apply self-center;
+  }
+}
