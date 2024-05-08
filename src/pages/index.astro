@@ -4,5 +4,8 @@ const pageTitle = 'Welcome to my site';
 ---
 
 <PageLayout pageTitle={pageTitle}>
-  <div class="">Hello, I am back. Feel free to check my site later</div>
+  <script>
+    const lang = navigator.language.slice(0, 2);
+    window.location.href = '/' + lang;
+  </script>
 </PageLayout>

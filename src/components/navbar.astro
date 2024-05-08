@@ -1,16 +1,34 @@
 ---
 import LogoIcon from './logo-icon.astro';
 
+import EnFlag from './flags/en-flag.astro';
+import ThFlag from './flags/th-flag.astro';
 
+import {
+  getLangFromUrl,
+  useTranslations,
+  getSwitchLanguageUrl,
+} from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const FlagIcon = lang === 'en' ? ThFlag : EnFlag;
+const switchLangUrl = getSwitchLanguageUrl(Astro.url);
+const t = useTranslations(lang);
+const flagAlt = lang === 'en' ? 'ภาษาไทย' : 'English';
 ---
 
-<div class="navbar bg-base-100">
+<div class="navbar bg-base-100 flex flex-row gap-3">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl" href="/">e23thr - developer</a>
+    <a class="btn btn-ghost text-xl hover:bg-transparent" href="/">{t('nav.name')}</a>
   </div>
   <div class="flex-none">
-    <a class="btn btn-square btn-ghost" href="#footer">
-      <LogoIcon class="w-6 h-6"/>
+    <a class="btn btn-circle btn-ghost btn-sm hover:bg-transparent" href={switchLangUrl} title={flagAlt}
+      ><FlagIcon /></a
+    >
+  </div>
+  <div class="flex-none">
+    <a class="btn btn-circle btn-ghost btn-sm hover:bg-transparent" href="#footer">
+      <LogoIcon class="w-full h-full" />
     </a>
   </div>
 </div>

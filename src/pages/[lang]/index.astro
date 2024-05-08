@@ -1,0 +1,27 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import PageLayout from '../../components/page-layout.astro';
+
+export const getStaticPaths = (async () => {
+  const paths = ['en', 'th'].map((lang) => {
+    return { params: { lang }, props: {} };
+  });
+
+  return paths;
+}) satisfies GetStaticPaths;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+console.log(t('home.title'));
+---
+
+<PageLayout pageTitle={t('home.title')} hideTitle="true">
+  <div class="flex w-full items-center justify-center">
+    <div class="w-full bg-[url('/assets/lets-coding-banner.jpg')] h-[600px] bg-cover bg-center bg-opacity-50 flex items-center justify-center">
+      Hello
+      <!-- <img src="/assets/lets-coding-banner.jpg" class="w-full"/> -->
+    </div>
+    <div>{t('home.introduction')}</div>
+  </div>
+</PageLayout>
