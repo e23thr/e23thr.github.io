@@ -1,11 +1,21 @@
 ---
-import PageLayout from '../components/page-layout.astro';
-const pageTitle = 'Welcome to my site';
+import JsonData from "../components/json-data";
+import PageLayout from "../components/page-layout.astro";
+import PresentationView from "../components/presentation-view";
+const pageTitle = "Welcome to my site";
 ---
 
 <PageLayout pageTitle={pageTitle}>
-  <script>
-    const lang = navigator.language.slice(0, 2);
-    window.location.href = '/' + lang;
-  </script>
+  <PresentationView client:only />
+  <!-- <div class="hidden">Hello, I am back. Feel free to check my site later</div>
+  <JsonData
+    client:visible
+    obj={{
+      name: "Praphan",
+      addr: {
+        house: 92,
+        soi: "Thoedthai 53",
+      },
+    }}
+  /> -->
 </PageLayout>
