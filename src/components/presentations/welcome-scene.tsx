@@ -7,8 +7,10 @@ import {
 } from "solid-js";
 import type { SceneProps } from "../../../types";
 import { windowHeight, windowWidth, scrollY } from "./signals";
-
+import "../../base.css";
 const WelcomeScene: Component<SceneProps> = (props) => {
+  let sceneEl: HTMLDivElement;
+  let darkBgEl: HTMLDivElement;
   let wrapperEl: HTMLDivElement;
   let textEl: HTMLDivElement;
   let myNameEl: HTMLDivElement;
@@ -18,13 +20,9 @@ const WelcomeScene: Component<SceneProps> = (props) => {
 
   createEffect(
     on([step, windowHeight, windowWidth, scrollY], ([s, h, w, sy]) => {
-      // const s = step();
-      // const h = windowHeight();
-      // const w = windowWidth();
-      // const sy = scrollY();
       // setup
-      textEl.style.fontSize = `${Math.floor(h / 20)}px`;
-      myNameEl.style.fontSize = `${Math.floor(h / 10)}px`;
+      textEl.style.fontSize = `${Math.floor(w / 30)}px`;
+      myNameEl.style.fontSize = `${Math.floor(w / 15)}px`;
 
       console.log("effect step", s);
       if (s === 0) {
@@ -43,20 +41,29 @@ const WelcomeScene: Component<SceneProps> = (props) => {
         }, 1100);
       }
       if (s > 1) {
+        // wrapperEl.offsetHeight
+        darkBgEl.style.opacity = `${
+          sy > 0
+            ? sy < darkBgEl.offsetHeight
+              ? sy / darkBgEl.offsetHeight
+              : 1
+            : 0
+        }`;
+        console.log("background", darkBgEl.offsetHeight);
         textEl.classList.remove(...cssAnimateClass);
         myNameEl.classList.remove(...cssAnimateClass);
         // more animation on scroll
         // const wrapperHeight = wrapperEl.offsetHeight;
         const wrapperWidth = wrapperEl.offsetWidth;
-        const ratio = (sy / wrapperWidth) * 2;
+        const ratio = sy / wrapperWidth / 0.5;
         console.log("ratio", ratio, sy);
         textEl.style.transform = `translateX(calc(${w}px - ${
           textEl.offsetWidth
         }px - ${ratio * sy}px ))`;
         myNameEl.style.transform = `translateX(${sy * ratio}px)`;
 
-        textEl.style.opacity = `${1 - ratio}`;
-        myNameEl.style.opacity = `${1 - ratio}`;
+        // textEl.style.opacity = `${1 - ratio}`;
+        // myNameEl.style.opacity = `${1 - ratio}`;
       }
     })
   );
@@ -75,24 +82,30 @@ const WelcomeScene: Component<SceneProps> = (props) => {
 
   return (
     <div
-      class="flex items-end overflow-x-hidden min-h-lvh"
+      ref={sceneEl!}
+      class="flex items-end overflow-x-hidden min-h-lvh welcome-scene relative"
       style={{
         ...props.style,
         "min-height": "100lvh",
       }}
     >
-      <div ref={wrapperEl!} class="wrapper bg-gray-100 w-full py-3">
+      <div
+        ref={darkBgEl!}
+        class="h-full w-full absolute left-0 top-0 bg-black opacity-0"
+      ></div>
+      <div ref={wrapperEl!} class="wrapper  w-full py-10">
         <div
           ref={textEl!}
-          class={`-translate-x-full w-fit text-gray-500 px-10`}
+          class={`-translate-x-full w-fit text-gray-200 px-10`}
         >
-          My name is
+          Interactive portfolio
         </div>
         <div
           ref={myNameEl!}
-          class={`w-fit translate-x-[1000px] text-gray-500 px-10`}
+          class={`w-fit translate-x-[1000px] text-gray-200 px-10 flex flex-row md:flex-row gap-5`}
         >
-          Praphan<span class="hidden md:inline-block pl-3"> Oranphanlert</span>
+          <div>Praphan</div>
+          <div> Oranphanlert</div>
         </div>
       </div>
     </div>
