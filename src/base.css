@@ -3,17 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.welcome-scene {
-  @apply bg-[url(/assets/cartoon-style-neighborhood-houses-illustration.png),_theme("backgroundImage.gradient-to-r")];
-  /* @apply bg-[cover,100%]; */
-  @apply bg-[length:cover,100%];
-  @apply bg-center;
-  @apply bg-fixed;
-  @apply from-blue-500;
-
-  @apply to-blue-900;
-}
-
 .blog-content {
   h1 {
     @apply text-3xl;
