@@ -1,21 +1,167 @@
 ---
-import JsonData from "../components/json-data";
-import PageLayout from "../components/page-layout.astro";
-import PresentationView from "../components/presentation-view";
-const pageTitle = "Welcome to my site";
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle';
+import ProjectCard from '../components/ProjectCard';
+import SkillBadge from '../components/SkillBadge';
+import ContactCTA from '../components/ContactCTA';
+
+const skills = [
+  'TypeScript', 'JavaScript', 'Python',
+  'React', 'SolidJS', 'Astro',
+  'Node.js', 'Express', 'FastAPI',
+  'Docker', 'GitHub Actions',
+  'Cypress'
+];
+
+const projects = [
+  {
+    name: 'cypress-guerrillamail',
+    description: 'Cypress plugin for login/forgot password flow testing',
+    url: 'https://github.com/e23thr/cypress-guerrillamail',
+    tech: ['JavaScript', 'Cypress', 'Testing']
+  },
+  {
+    name: 'Orange Production',
+    description: 'Web application for printing house management',
+    url: 'https://github.com/orange-production',
+    tech: ['TypeScript', 'React', 'Node.js']
+  },
+  {
+    name: 'ThaiGoldHub Website',
+    description: 'E-commerce platform for gold products at thaigoldhub.com',
+    url: 'https://github.com/ThaiGoldHubWebsite/website',
+    tech: ['TypeScript', 'Astro', 'E-commerce']
+  }
+];
 ---
 
-<PageLayout pageTitle={pageTitle}>
-  <PresentationView client:only />
-  <!-- <div class="hidden">Hello, I am back. Feel free to check my site later</div>
-  <JsonData
-    client:visible
-    obj={{
-      name: "Praphan",
-      addr: {
-        house: 92,
-        soi: "Thoedthai 53",
-      },
-    }}
-  /> -->
-</PageLayout>
+<Layout title="Praphan - Freelance Developer">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-slate-800">
+    <nav class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold text-gray-900 dark:text-white">
+        Praphan
+      </a>
+      <div class="flex items-center gap-4">
+        <a href="#projects" class="text-gray-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors">
+          Projects
+        </a>
+        <a href="#skills" class="text-gray-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors">
+          Skills
+        </a>
+        <a href="#contact" class="text-gray-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors">
+          Contact
+        </a>
+        <ThemeToggle client:load />
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-16">
+    <!-- Hero Section -->
+    <section class="min-h-[80vh] flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          Praphan Oranphanlert
+        </h1>
+        <p class="text-xl sm:text-2xl text-sky-500 dark:text-sky-400 font-medium mb-4">
+          Freelance Developer
+        </p>
+        <p class="text-lg text-gray-600 dark:text-slate-400 mb-8">
+          Building web applications that help people
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#projects"
+            class="px-6 py-3 bg-sky-500 hover:bg-sky-600 dark:bg-sky-400 dark:hover:bg-sky-500 text-white dark:text-slate-900 font-semibold rounded-lg transition-colors"
+          >
+            View Projects
+          </a>
+          <a
+            href="#contact"
+            class="px-6 py-3 bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 text-gray-800 dark:text-white font-semibold rounded-lg transition-colors"
+          >
+            Hire Me
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900/50">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
+          Featured Projects
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <ProjectCard client:visible project={project} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
+          Skills & Technologies
+        </h2>
+        <div class="flex flex-wrap justify-center gap-4">
+          {skills.map((skill) => (
+            <SkillBadge client:visible skill={skill} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900/50">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
+          Experience
+        </h2>
+        <div class="max-w-2xl mx-auto">
+          <div class="relative border-l-2 border-sky-500 dark:border-sky-400 ml-4 sm:ml-6">
+            <div class="mb-10 ml-6">
+              <span class="absolute -left-2 w-4 h-4 bg-sky-500 dark:bg-sky-400 rounded-full"></span>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                Freelance Developer
+              </h3>
+              <p class="text-sky-500 dark:text-sky-400 mb-2">Present</p>
+              <p class="text-gray-600 dark:text-slate-400">
+                Building web applications and automation solutions for clients worldwide.
+                Specialized in TypeScript, React, and modern web technologies.
+              </p>
+            </div>
+            <div class="ml-6">
+              <span class="absolute -left-2 w-4 h-4 bg-gray-300 dark:bg-slate-600 rounded-full"></span>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                Web Development
+              </h3>
+              <p class="text-gray-500 dark:text-slate-500 mb-2">2020 - Present</p>
+              <p class="text-gray-600 dark:text-slate-400">
+                Developed various web applications including e-commerce platforms,
+                management systems, and automation tools using modern technologies.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-5xl mx-auto">
+        <ContactCTA client:visible />
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-8 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto text-center text-gray-500 dark:text-slate-500">
+      <p>&copy; {new Date().getFullYear()} Praphan Oranphanlert. All rights reserved.</p>
+    </div>
+  </footer>
+</Layout>
