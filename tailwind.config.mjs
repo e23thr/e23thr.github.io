@@ -1,13 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monaco', 'monospace'],
+      },
     },
   },
-  safelist: [],
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["dark"],
-  },
+  plugins: [],
 };
